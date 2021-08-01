@@ -9,30 +9,28 @@ import Page from '../components/Page';
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled(Page)(({ theme }) => ({
+const RootStyle = styled(Page)(() => ({
   display: 'flex',
   minHeight: '100%',
-  alignItems: 'center',
-  paddingTop: theme.spacing(15),
-  paddingBottom: theme.spacing(10)
+  alignItems: 'center'
 }));
 
 // ----------------------------------------------------------------------
 
 export default function Page404() {
   return (
-    <RootStyle title="404 Page Not Found | Minimal-UI">
+    <RootStyle title="404 - Página não encontrada">
       <Container>
         <MotionContainer initial="initial" open>
           <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
             <motion.div variants={varBounceIn}>
               <Typography variant="h3" paragraph>
-                Sorry, page not found!
+                Desculpe, página não encontrada
               </Typography>
             </motion.div>
             <Typography sx={{ color: 'text.secondary' }}>
-              Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL?
-              Be sure to check your spelling.
+              Desculpe, nós não podemos encontrar a página que você está procurando. Talvez você
+              tenha errado a URL? Certifique o seu caminho especificado
             </Typography>
 
             <motion.div variants={varBounceIn}>
@@ -44,7 +42,7 @@ export default function Page404() {
             </motion.div>
 
             <Button to="/" size="large" variant="contained" component={RouterLink}>
-              Go to Home
+              Página Inicial
             </Button>
           </Box>
         </MotionContainer>

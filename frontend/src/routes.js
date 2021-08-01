@@ -6,38 +6,45 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardApp from './pages/DashboardApp';
-import Products from './pages/Products';
-import Blog from './pages/Blog';
-import User from './pages/User';
 import NotFound from './pages/Page404';
+import Classes from './pages/Classes';
+import Modules from './pages/Modules';
+import Exams from './pages/Exams';
+import Students from './pages/Students';
+import Profile from './pages/Profile';
 
-// ----------------------------------------------------------------------
+// hooks
+import { useAuth } from './hooks/useAuth';
 
 export default function Router() {
+  const { auth } = useAuth();
+
   return useRoutes([
     {
       path: '/dashboard',
-      element: <DashboardLayout />,
+      element: auth ? <DashboardLayout /> : <Navigate to="/login" replace />,
       children: [
         { path: '/', element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
-        { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> }
+        { path: 'classes', element: <Classes /> },
+        { path: 'modules', element: <Modules /> },
+        { path: 'exam', element: <Exams /> },
+        { path: 'students', element: <Students /> },
+        { path: 'profile', element: <Profile /> },
+        { path: '*', element: <Navigate to="/404" replace /> }
       ]
     },
     {
       path: '/',
-      element: <LogoOnlyLayout />,
+      element: auth ? <Navigate to="/dashboard/app" replace /> : <LogoOnlyLayout />,
       children: [
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
-        { path: '404', element: <NotFound /> },
-        { path: '/', element: <Navigate to="/dashboard" /> },
-        { path: '*', element: <Navigate to="/404" /> }
+        { path: '/', element: <Navigate to="/dashboard" replace /> },
+        { path: '*', element: <Navigate to="/404" replace /> }
       ]
     },
-
+    { path: '404', element: <NotFound /> },
     { path: '*', element: <Navigate to="/404" replace /> }
   ]);
 }

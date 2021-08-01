@@ -1,11 +1,9 @@
-import { Icon } from '@iconify/react';
-import pieChart2Fill from '@iconify/icons-eva/pie-chart-2-fill';
+import editBagFill from '@iconify/icons-eva/edit-fill';
+import folderFill from '@iconify/icons-eva/folder-fill';
+import monitorFill from '@iconify/icons-eva/monitor-fill';
 import peopleFill from '@iconify/icons-eva/people-fill';
-import shoppingBagFill from '@iconify/icons-eva/shopping-bag-fill';
-import fileTextFill from '@iconify/icons-eva/file-text-fill';
-import lockFill from '@iconify/icons-eva/lock-fill';
-import personAddFill from '@iconify/icons-eva/person-add-fill';
-import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
+import pieChart2Fill from '@iconify/icons-eva/pie-chart-2-fill';
+import { Icon } from '@iconify/react';
 
 // ----------------------------------------------------------------------
 
@@ -18,34 +16,24 @@ const sidebarConfig = [
     icon: getIcon(pieChart2Fill)
   },
   {
-    title: 'user',
-    path: '/dashboard/user',
+    title: 'classes',
+    path: '/dashboard/classes',
+    icon: getIcon(monitorFill)
+  },
+  {
+    title: 'modules',
+    path: '/dashboard/modules',
+    icon: getIcon(folderFill)
+  },
+  {
+    title: 'exam',
+    path: '/dashboard/exam',
+    icon: getIcon(editBagFill)
+  },
+  {
+    title: 'students',
+    path: '/dashboard/students',
     icon: getIcon(peopleFill)
-  },
-  {
-    title: 'product',
-    path: '/dashboard/products',
-    icon: getIcon(shoppingBagFill)
-  },
-  {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: getIcon(fileTextFill)
-  },
-  {
-    title: 'login',
-    path: '/login',
-    icon: getIcon(lockFill)
-  },
-  {
-    title: 'register',
-    path: '/register',
-    icon: getIcon(personAddFill)
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: getIcon(alertTriangleFill)
   }
 ];
 

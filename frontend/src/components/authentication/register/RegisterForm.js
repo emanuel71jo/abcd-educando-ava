@@ -1,13 +1,13 @@
-import * as Yup from 'yup';
-import { useState } from 'react';
-import { Icon } from '@iconify/react';
-import { useFormik, Form, FormikProvider } from 'formik';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
-import { useNavigate } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 // material
-import { Stack, TextField, IconButton, InputAdornment } from '@material-ui/core';
+import { IconButton, InputAdornment, Stack, TextField } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
+import { Form, FormikProvider, useFormik } from 'formik';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 
 // ----------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ export default function RegisterForm() {
     },
     validationSchema: RegisterSchema,
     onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+      navigate('/login', { replace: true });
     }
   });
 

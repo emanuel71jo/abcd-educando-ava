@@ -15,18 +15,22 @@ import { Form, FormikProvider, useFormik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useAuth } from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { signIn } = useAuth();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email('Email informado é inválido')
       .required('Email é um campo obrigatório'),
-    password: Yup.string().required('Senha é um campo obrigatório')
+    password: Yup.string()
+      .min(8, 'A senha deve ter no mínimo 8 dígitos')
+      .required('Senha é um campo obrigatório')
   });
 
   const formik = useFormik({
@@ -36,7 +40,8 @@ export default function LoginForm() {
       remember: true
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
+    onSubmit: (values) => {
+      signIn({ email: values.email, password: values.password });
       navigate('/dashboard', { replace: true });
     }
   });
@@ -86,10 +91,6 @@ export default function LoginForm() {
             control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
             label="Mater-me conectado"
           />
-          {/* 
-          <Link component={RouterLink} variant="subtitle2" to="#">
-            Forgot password?
-          </Link> */}
         </Stack>
 
         <LoadingButton

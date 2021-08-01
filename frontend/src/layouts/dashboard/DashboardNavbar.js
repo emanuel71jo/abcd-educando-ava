@@ -1,16 +1,12 @@
-import PropTypes from 'prop-types';
-import { Icon } from '@iconify/react';
 import menu2Fill from '@iconify/icons-eva/menu-2-fill';
+import { Icon } from '@iconify/react';
+import { AppBar, Box, IconButton, Stack, Toolbar } from '@material-ui/core';
 // material
 import { alpha, styled } from '@material-ui/core/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@material-ui/core';
+import PropTypes from 'prop-types';
 // components
 import { MHidden } from '../../components/@material-extend';
-//
-import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
-import LanguagePopover from './LanguagePopover';
-import NotificationsPopover from './NotificationsPopover';
 
 // ----------------------------------------------------------------------
 
@@ -52,12 +48,9 @@ export default function DashboardNavbar({ onOpenSidebar }) {
           </IconButton>
         </MHidden>
 
-        <Searchbar />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
-          <LanguagePopover />
-          <NotificationsPopover />
           <AccountPopover />
         </Stack>
       </ToolbarStyle>

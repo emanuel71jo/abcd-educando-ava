@@ -40,7 +40,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   return (
-    <RootStyle title="Login | Minimal-UI">
+    <RootStyle title="Entrar">
       <AuthLayout>
         Não tem uma conta? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to="/register">
@@ -65,10 +65,7 @@ export default function Login() {
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>Entre com seus dados abaixo.</Typography>
           </Stack>
-          {/* <AuthSocial /> */}
-
           <LoginForm />
-
           <MHidden width="smUp">
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
               Não tem uma conta?&nbsp;
