@@ -7,8 +7,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardApp from './pages/DashboardApp';
 import NotFound from './pages/Page404';
-import Classes from './pages/Classes';
-import Modules from './pages/Modules';
+import ClassesList from './pages/ClassesList';
+import ClassesCreate from './pages/ClassesCreate';
+import ModulesList from './pages/ModulesList';
+import ModulesCreate from './pages/ModulesCreate';
 import Exams from './pages/Exams';
 import Students from './pages/Students';
 import Profile from './pages/Profile';
@@ -26,8 +28,10 @@ export default function Router() {
       children: [
         { path: '/', element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
-        { path: 'classes', element: <Classes /> },
-        { path: 'modules', element: <Modules /> },
+        { path: 'classes', element: <ClassesList /> },
+        { path: 'classes/create', element: <ClassesCreate /> },
+        { path: 'modules', element: <ModulesList /> },
+        { path: 'modules/create', element: <ModulesCreate /> },
         { path: 'exam', element: <Exams /> },
         { path: 'students', element: <Students /> },
         { path: 'profile', element: <Profile /> },

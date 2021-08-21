@@ -1,15 +1,16 @@
 // material
 import { Container, Typography } from '@material-ui/core';
+import { Header } from '../components/_dashboard/app/components/Header';
 // components
 import Page from '../components/Page';
 
 // ----------------------------------------------------------------------
 
-export default function Modules() {
+export default function ClassesList() {
   return (
-    <Page title="Módulos">
+    <Page title="Salas de Aula">
       <Container maxWidth="xl">
-        <Typography>Módulos</Typography>
+        <Header title="Salas de Aula" to="/dashboard/classes/create" buttonTitle="Criar Nova" />
       </Container>
     </Page>
   );

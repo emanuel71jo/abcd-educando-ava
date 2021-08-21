@@ -11,27 +11,27 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
 const sidebarConfig = [
   {
-    title: 'dashboard',
+    title: 'Dashboard',
     path: '/dashboard/app',
     icon: getIcon(pieChart2Fill)
   },
   {
-    title: 'classes',
+    title: 'Salas',
     path: '/dashboard/classes',
     icon: getIcon(monitorFill)
   },
   {
-    title: 'modules',
+    title: 'Módulos',
     path: '/dashboard/modules',
     icon: getIcon(folderFill)
   },
   {
-    title: 'exam',
+    title: 'Atividades',
     path: '/dashboard/exam',
     icon: getIcon(editBagFill)
   },
   {
-    title: 'students',
+    title: 'Alunos',
     path: '/dashboard/students',
     icon: getIcon(peopleFill)
   }

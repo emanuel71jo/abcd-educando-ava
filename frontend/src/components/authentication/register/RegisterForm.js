@@ -2,7 +2,16 @@ import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { Icon } from '@iconify/react';
 // material
-import { IconButton, InputAdornment, Stack, TextField } from '@material-ui/core';
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem
+} from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useState } from 'react';
@@ -27,7 +36,8 @@ export default function RegisterForm() {
     email: Yup.string()
       .email('Email informado é inválido')
       .required('Email é um campo obrigatório'),
-    password: Yup.string().required('Password é um campo obrigatório')
+    password: Yup.string().required('Password é um campo obrigatório'),
+    userType: Yup.number().required('O tipo do usuário é um campo obrigatório')
   });
 
   const formik = useFormik({
@@ -35,7 +45,8 @@ export default function RegisterForm() {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      userType: 0
     },
     validationSchema: RegisterSchema,
     onSubmit: () => {
@@ -66,6 +77,19 @@ export default function RegisterForm() {
               helperText={touched.lastName && errors.lastName}
             />
           </Stack>
+          <FormControl variant="outlined">
+            <InputLabel id="userTypeLabel">Quero me cadastrar como?</InputLabel>
+            <Select
+              labelId="userTypeLabel"
+              {...getFieldProps('userType')}
+              label="Quero me cadastrar como?"
+              error={Boolean(touched.userType && errors.userType)}
+              helperText={touched.userType && errors.userType}
+            >
+              <MenuItem value={0}>Professor</MenuItem>
+              <MenuItem value={1}>Aluno</MenuItem>
+            </Select>
+          </FormControl>
 
           <TextField
             fullWidth
