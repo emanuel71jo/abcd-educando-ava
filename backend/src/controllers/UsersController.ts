@@ -12,7 +12,7 @@ class UsersController {
   }
 
   async create(req: Request, res: Response): Promise<Response> {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, firstName, lastName , type } = req.body;
 
     const usersService = new UsersService();
 

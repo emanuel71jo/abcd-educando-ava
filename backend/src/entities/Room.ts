@@ -14,7 +14,7 @@ class Room {
   students: User[];
 
   @JoinColumn({ name: "teacherId" })
-  @ManyToOne(() => User, user => user.room)
+  @ManyToOne(() => User, user => user.rooms)
   teacher: User;
 
   @OneToMany(() => Module, module => module.room, {cascade: true})
