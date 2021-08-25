@@ -22,6 +22,7 @@ class UsersController {
 
     const userCreated = await usersService.create(
       email,
+      type,
       password,
       firstName,
       lastName

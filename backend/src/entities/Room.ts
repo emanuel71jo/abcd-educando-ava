@@ -18,7 +18,7 @@ class Room {
   teacher: User;
 
   @OneToMany(() => Module, module => module.room, {cascade: true})
-  module: Module[];
+  modules: Module[];
 
   @OneToMany(() => UserRoom, userRoom => userRoom.room, {cascade: true})
   userRooms: UserRoom[];

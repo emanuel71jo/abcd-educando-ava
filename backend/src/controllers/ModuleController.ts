@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { ModulesService } from "../services/ModuloServices";
-import { RoomsService } from "../services/RoomServices";
 
-class RoomsController {
+class ModulesController {
     async index(req: Request, res: Response): Promise<Response> {
         const modulesService = new ModulesService();
 
@@ -12,19 +11,20 @@ class RoomsController {
     }
 
     async create(req: Request, res: Response): Promise<Response> {
-        const { students, teacher, modules } = req.body;
+        const { content, evaluation, room, activities } = req.body;
 
-        const roomsService = new RoomsService();
+        const modulesService = new ModulesService();
 
-        const roomCreated = await roomsService.create(
-            students,
-            teacher,
-            modules
+        const moduleCreated = await modulesService.create(
+            content,
+            evaluation,
+            room,
+            activities
         );
 
-        return res.json(roomCreated);
+        return res.json(moduleCreated);
     }
 }
 
-export { RoomsController };
+export { ModulesController };
 

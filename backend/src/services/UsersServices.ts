@@ -17,6 +17,7 @@ class UsersService {
 
   async create(
     email: string,
+    type: number,
     password: string,
     firstName: string,
     lastName: string
@@ -27,6 +28,7 @@ class UsersService {
 
     const user = new User();
     user.email = email;
+    user.type = type;
     user.firstName = firstName;
     user.lastName = lastName;
     user.hashPassword(password);
@@ -46,3 +48,4 @@ class UsersService {
 }
 
 export { UsersService };
+
