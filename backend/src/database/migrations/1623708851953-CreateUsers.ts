@@ -12,6 +12,10 @@ export class CreateUsers1623708851953 implements MigrationInterface {
             isPrimary: true,
           },
           {
+            name: "type",
+            type: "number",
+          },
+          {
             name: "email",
             type: "varchar",
           },
@@ -28,13 +32,26 @@ export class CreateUsers1623708851953 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "roomId",
+            type: "uuid",
+            isNullable: true
+          },
+          {
             name: "created_at",
             type: "timestamp",
             default: "now()",
           },
-        ],
-      })
-    );
+        ], foreignKeys: [
+          {
+            name: "FKRoom",
+            referencedTableName: "rooms",
+            referencedColumnNames: ["id"],
+            columnNames: ["roomId"],
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+          },
+        ]
+    }));
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
