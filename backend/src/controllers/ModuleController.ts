@@ -2,29 +2,35 @@ import { Request, Response } from "express";
 import { ModulesService } from "../services/ModuloServices";
 
 class ModulesController {
-    async index(req: Request, res: Response): Promise<Response> {
-        const modulesService = new ModulesService();
+  async index(req: Request, res: Response): Promise<Response> {
+    const { userId } = req.body.user;
 
-        const modules = await modulesService.listAll();
+    const modulesService = new ModulesService();
 
-        return res.json(modules);
-    }
+    const modules = await modulesService.findByUserId(userId);
 
-    async create(req: Request, res: Response): Promise<Response> {
-        const { content, evaluation, room, activities } = req.body;
+    return res.json(modules);
+  }
 
-        const modulesService = new ModulesService();
+  async create(req: Request, res: Response): Promise<Response> {
+    const {
+      content,
+      evaluation,
+      user: { userId },
+      roomId,
+    } = req.body;
 
-        const moduleCreated = await modulesService.create(
-            content,
-            evaluation,
-            room,
-            activities
-        );
+    const modulesService = new ModulesService();
 
-        return res.json(moduleCreated);
-    }
+    const moduleCreated = await modulesService.create(
+      content,
+      evaluation,
+      roomId,
+      userId
+    );
+
+    return res.json(moduleCreated);
+  }
 }
 
 export { ModulesController };
-

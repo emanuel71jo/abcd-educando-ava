@@ -3,6 +3,7 @@ import { Module } from "../entities/Module";
 import { Room } from "../entities/Room";
 import { User } from "../entities/User";
 import { RoomsRepository } from "../repositories/RoomRepository";
+import { UsersService } from "./UsersServices";
 
 class RoomsService {
   private roomsRepository: Repository<Room>;
@@ -16,16 +17,20 @@ class RoomsService {
     return rooms;
   }
 
-  async create(
-    students: User[],
-    teacher: User,
-    modules: Module[]
-  ): Promise<Room> {
+  async findById(roomId: string): Promise<Room> {
+    const room = await this.roomsRepository.findOne({ where: { id: roomId } });
+    return room;
+  }
 
+  async findByTeacherId(teacherId: string): Promise<Room[]> {
+    const rooms = await this.roomsRepository.find({ where: { teacherId } });
+
+    return rooms;
+  }
+
+  async create(teacherId: string): Promise<Room> {
     const room = new Room();
-    room.students = students;
-    room.teacher = teacher;
-    room.modules = modules;
+    room.teacherId = teacherId;
 
     const roomCreated = this.roomsRepository.create(room);
 
@@ -33,8 +38,6 @@ class RoomsService {
 
     return room;
   }
-
 }
 
 export { RoomsService };
-
