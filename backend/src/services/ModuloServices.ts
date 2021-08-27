@@ -3,6 +3,8 @@ import { Activity } from "../entities/Activity";
 import { Module } from "../entities/Module";
 import { Room } from "../entities/Room";
 import { ModulesRepository } from "../repositories/ModuleRepository";
+import { RoomsService } from "./RoomServices";
+import { UsersService } from "./UsersServices";
 
 class ModulesService {
   private modulesRepository: Repository<Module>;
@@ -16,18 +18,31 @@ class ModulesService {
     return modules;
   }
 
+  async findById(moduleId: string): Promise<Module> {
+    const module = await this.modulesRepository.findOne({
+      where: { id: moduleId },
+    });
+    return module;
+  }
+
+  async findByUserId(userId: string): Promise<Module[]> {
+    const modules = await this.modulesRepository.find({
+      where: { userId },
+    });
+    return modules;
+  }
+
   async create(
     content: string,
     evaluation: string,
-    room: Room,
-    activities: Activity[]
+    roomId: string,
+    userId: string
   ): Promise<Module> {
-
     const module = new Module();
     module.content = content;
     module.evaluation = evaluation;
-    module.room = room;
-    module.activities = activities;
+    module.roomId = roomId;
+    module.userId = userId;
 
     const moduleCreated = this.modulesRepository.create(module);
 
@@ -35,8 +50,6 @@ class ModulesService {
 
     return module;
   }
-
 }
 
 export { ModulesService };
-

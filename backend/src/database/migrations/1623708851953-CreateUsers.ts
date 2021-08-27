@@ -34,14 +34,15 @@ export class CreateUsers1623708851953 implements MigrationInterface {
           {
             name: "roomId",
             type: "uuid",
-            isNullable: true
+            isNullable: true,
           },
           {
             name: "created_at",
             type: "timestamp",
             default: "now()",
           },
-        ], foreignKeys: [
+        ],
+        foreignKeys: [
           {
             name: "FKRoom",
             referencedTableName: "rooms",
@@ -50,8 +51,9 @@ export class CreateUsers1623708851953 implements MigrationInterface {
             onDelete: "CASCADE",
             onUpdate: "CASCADE",
           },
-        ]
-    }));
+        ],
+      })
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

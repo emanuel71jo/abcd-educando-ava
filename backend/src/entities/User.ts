@@ -1,10 +1,18 @@
 import bcrypt from "bcryptjs";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, JoinColumn, ManyToOne } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  JoinColumn,
+  ManyToOne,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Activity } from "./Activity";
+import { Module } from "./Module";
 import { Room } from "./Room";
 import { UserRoom } from "./UserRoom";
-
 
 @Entity("users")
 class User {
@@ -26,21 +34,24 @@ class User {
   @Column()
   lastName: string;
 
+  @Column()
+  roomId: string;
+
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToMany(() => Room, room => room.teacher, {cascade: true})
-  room: Room;
-
   @JoinColumn({ name: "roomId" })
-  @ManyToOne(() => Room, room => room.students)
+  @ManyToOne(() => Room, (room) => room.teacher, { nullable: true })
   rooms: Room[];
 
-  @OneToMany(() => Activity, activity => activity.user, {cascade: true})
+  @OneToMany(() => Activity, (activity) => activity.user, { cascade: true })
   activities: Activity[];
 
-  @OneToMany(() => UserRoom, userRoom => userRoom.user, {cascade: true})
+  @OneToMany(() => UserRoom, (userRoom) => userRoom.user, { cascade: true })
   userRooms: UserRoom[];
+
+  @OneToMany(() => Module, (module) => module.user, { cascade: true })
+  modules: Module[];
 
   constructor() {
     if (!this.id) this.id = uuid();
@@ -56,4 +67,3 @@ class User {
 }
 
 export { User };
-

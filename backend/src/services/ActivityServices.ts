@@ -3,36 +3,44 @@ import { Activity } from "../entities/Activity";
 import { Module } from "../entities/Module";
 import { User } from "../entities/User";
 import { ActivitiesRepository } from "../repositories/ActivityRepository";
+import { ModulesService } from "./ModuloServices";
+import { UsersService } from "./UsersServices";
 
 class ActivitiesService {
-    private activitiesRepository: Repository<Activity>;
+  private activitiesRepository: Repository<Activity>;
 
-    constructor() {
-        this.activitiesRepository = getCustomRepository(ActivitiesRepository);
-    }
+  constructor() {
+    this.activitiesRepository = getCustomRepository(ActivitiesRepository);
+  }
 
-    async listAll(): Promise<Activity[]> {
-        const activities = await this.activitiesRepository.find();
-        return activities;
-    }
+  async listAll(): Promise<Activity[]> {
+    const activities = await this.activitiesRepository.find();
+    return activities;
+  }
 
-    async create(
-        nota: number,
-        user: User,
-        module: Module
-    ): Promise<Activity> {
+  async findByUserId(userId: string): Promise<Activity[]> {
+    const activities = await this.activitiesRepository.find({
+      where: { userId },
+    });
+    return activities;
+  }
 
-        const activity = new Activity();
-        activity.nota = nota;
-        activity.user = user;
-        activity.module = module;
-        const activityCreated = this.activitiesRepository.create(activity);
+  async create(
+    nota: number,
+    userId: string,
+    moduleId: string
+  ): Promise<Activity> {
+    const activity = new Activity();
+    activity.nota = nota;
+    activity.userId = userId;
+    activity.moduleId = moduleId;
 
-        await this.activitiesRepository.save(activityCreated);
+    const activityCreated = this.activitiesRepository.create(activity);
 
-        return activity;
-    }
+    await this.activitiesRepository.save(activityCreated);
+
+    return activity;
+  }
 }
 
 export { ActivitiesService };
-

@@ -12,11 +12,11 @@ class UsersController {
   }
 
   async create(req: Request, res: Response): Promise<Response> {
-    const { email, password, firstName, lastName , type } = req.body;
+    const { email, password, firstName, lastName, type } = req.body;
 
     const usersService = new UsersService();
 
-    const user = usersService.findByEmail(email);
+    const user = await usersService.findByEmail(email);
 
     if (!!user) throw new AppError("User already exists!", 409);
 
