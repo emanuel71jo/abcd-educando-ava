@@ -15,6 +15,15 @@ class UsersService {
     return users;
   }
 
+  async listAllStudents(): Promise<User[]> {
+    const users = await this.usersRepository.find({
+      where: {
+        type: 1,
+      },
+    });
+    return users;
+  }
+
   async create(
     email: string,
     type: number,
@@ -50,6 +59,24 @@ class UsersService {
     const user = await this.usersRepository.findOne({ where: { id: userId } });
 
     return user;
+  }
+
+  async getTotalStudents(): Promise<number> {
+    const totalStudents = await this.usersRepository.count({
+      where: {
+        type: 1,
+      },
+    });
+    return totalStudents;
+  }
+
+  async getStudents(): Promise<User[]> {
+    const totalStudents = await this.usersRepository.find({
+      where: {
+        type: 1,
+      },
+    });
+    return totalStudents;
   }
 }
 

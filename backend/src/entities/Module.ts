@@ -23,7 +23,7 @@ class Module {
   @Column()
   evaluation: string;
 
-  @Column()
+  @Column({ nullable: true })
   roomId: string;
 
   @Column()

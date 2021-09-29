@@ -30,13 +30,13 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   )} 100%)`
 }));
 
-export function AppStudents() {
+export function AppStudents({ value }) {
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={peopleFill} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">92</Typography>
+      <Typography variant="h3">{value}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Estudantes
       </Typography>

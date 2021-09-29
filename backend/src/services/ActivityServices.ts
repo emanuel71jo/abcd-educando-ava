@@ -18,22 +18,38 @@ class ActivitiesService {
     return activities;
   }
 
-  async findByUserId(userId: string): Promise<Activity[]> {
-    const activities = await this.activitiesRepository.find({
-      where: { userId },
+  async getTotalActivitiesUser(userId: string): Promise<number> {
+    const totalActivitiesUser = await this.activitiesRepository.count({
+      where: {
+        userId,
+      },
     });
+    return totalActivitiesUser;
+  }
+
+  async getTotalActivitiesTeacher(): Promise<number> {
+    const totalActivitiesUser = await this.activitiesRepository.count();
+    return totalActivitiesUser;
+  }
+
+  async findAll(): Promise<Activity[]> {
+    const activities = await this.activitiesRepository.find();
     return activities;
   }
 
   async create(
     nota: number,
     userId: string,
-    moduleId: string
+    moduleId: string,
+    title: string,
+    description: string
   ): Promise<Activity> {
     const activity = new Activity();
     activity.nota = nota;
     activity.userId = userId;
     activity.moduleId = moduleId;
+    activity.title = title;
+    activity.description = description;
 
     const activityCreated = this.activitiesRepository.create(activity);
 

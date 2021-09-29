@@ -32,13 +32,13 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export function AppModules() {
+export function AppModules({ value }) {
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={folderFill} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">12</Typography>
+      <Typography variant="h3">{value}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Módulos
       </Typography>

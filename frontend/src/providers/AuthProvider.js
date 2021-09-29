@@ -1,26 +1,33 @@
-import { useEffect, useCallback, useState } from 'react';
+import jwtDecode from 'jwt-decode';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-
-const tokensSession = 'sdfasdfFASDG51D5F1A231D23F123SDF';
+import { api } from '../services/api';
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   const [auth, setAuth] = useState(() => {
     const token = sessionStorage.getItem('@ABCDEducando_login');
     if (token) return token;
-    return null;
+    return '';
   });
 
-  useEffect(() => {
-    console.log(auth);
-  }, [auth]);
+  const [profile, setProfile] = useState(null);
 
   const signIn = useCallback(async ({ email, password }) => {
-    try {
-      setAuth(tokensSession);
-      sessionStorage.setItem('@ABCDEducando_login', tokensSession);
-    } catch (error) {
-      alert('Email ou senha inválidos');
-    }
+    api
+      .post('/signIn', { email, password })
+      .then(({ data: { token } }) => {
+        navigate('/dashboard', { replace: true });
+        setAuth(token);
+        sessionStorage.setItem('@ABCDEducando_login', token);
+        setProfile({ ...jwtDecode(token) });
+        alert('Usuário autenticado com sucesso!!');
+      })
+      .catch(() => {
+        alert('Email ou senha inválidos!!');
+      });
   }, []);
 
   const signOut = useCallback(() => {
@@ -28,5 +35,9 @@ export const AuthProvider = ({ children }) => {
     setAuth('');
   }, []);
 
-  return <AuthContext.Provider value={{ auth, signIn, signOut }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ auth, signIn, signOut, profile }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

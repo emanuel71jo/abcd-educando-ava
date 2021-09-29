@@ -12,6 +12,10 @@ export class CreateRoom1629861584180 implements MigrationInterface {
             isPrimary: true,
           },
           {
+            name: "title",
+            type: "varchar",
+          },
+          {
             name: "created_at",
             type: "timestamp",
             default: "now()",

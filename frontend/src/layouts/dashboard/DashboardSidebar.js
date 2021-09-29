@@ -4,13 +4,14 @@ import { styled } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import { MHidden } from '../../components/@material-extend';
 // components
 import Logo from '../../components/Logo';
 import NavSection from '../../components/NavSection';
 import Scrollbar from '../../components/Scrollbar';
 //
-import sidebarConfig from './SidebarConfig';
+import { sidebarConfigStudent, sidebarConfigTeacher } from './SidebarConfig';
 
 // ----------------------------------------------------------------------
 
@@ -40,6 +41,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
+  const { profile } = useAuth();
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -67,13 +69,17 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Avatar src="/static/mock-images/avatars/avatar_default.jpg" alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                João Emanuel
+                {(profile && profile.name) || ''}
               </Typography>
             </Box>
           </AccountStyle>
         </Link>
       </Box>
-      <NavSection navConfig={sidebarConfig} />
+      <NavSection
+        navConfig={
+          profile && Number(profile.type) === 0 ? sidebarConfigTeacher : sidebarConfigStudent
+        }
+      />
     </Scrollbar>
   );
 

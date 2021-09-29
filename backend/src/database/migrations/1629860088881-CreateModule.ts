@@ -22,6 +22,7 @@ export class CreateModule1629860088881 implements MigrationInterface {
           {
             name: "roomId",
             type: "uuid",
+            isNullable: true,
           },
           {
             name: "userId",

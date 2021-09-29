@@ -12,8 +12,6 @@ class UsersRoomService {
   }
 
   async createAll(students: string[], room: Room): Promise<UserRoom[]> {
-    const usersService = new UsersService();
-
     const promise = students.map(async (studentId) => {
       const userRoom = new UserRoom();
       userRoom.userId = studentId;
@@ -25,6 +23,36 @@ class UsersRoomService {
     });
 
     return await Promise.all(promise);
+  }
+
+  async getTotalRoomsUser(userId: string): Promise<number> {
+    const totalRoomsUser = await this.usersRoomRepository.count({
+      where: {
+        userId,
+      },
+    });
+
+    return totalRoomsUser;
+  }
+
+  async getTotalRoomsRoom(roomId: string): Promise<number> {
+    const totalRoomsUser = await this.usersRoomRepository.count({
+      where: {
+        roomId,
+      },
+    });
+
+    return totalRoomsUser;
+  }
+
+  async findByUserId(userId: string): Promise<UserRoom[]> {
+    const userRooms = await this.usersRoomRepository.find({
+      where: {
+        userId,
+      },
+    });
+
+    return userRooms;
   }
 }
 

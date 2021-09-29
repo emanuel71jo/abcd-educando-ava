@@ -9,14 +9,14 @@ import { Icon } from '@iconify/react';
 
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
-const sidebarConfig = [
+const sidebarConfigTeacher = [
   {
     title: 'Dashboard',
     path: '/dashboard/app',
     icon: getIcon(pieChart2Fill)
   },
   {
-    title: 'Salas',
+    title: 'Disciplinas',
     path: '/dashboard/classes',
     icon: getIcon(monitorFill)
   },
@@ -26,7 +26,7 @@ const sidebarConfig = [
     icon: getIcon(folderFill)
   },
   {
-    title: 'Atividades',
+    title: 'Provas',
     path: '/dashboard/exam',
     icon: getIcon(editBagFill)
   },
@@ -37,4 +37,22 @@ const sidebarConfig = [
   }
 ];
 
-export default sidebarConfig;
+const sidebarConfigStudent = [
+  {
+    title: 'Dashboard',
+    path: '/dashboard/app',
+    icon: getIcon(pieChart2Fill)
+  },
+  {
+    title: 'Disciplinas',
+    path: '/dashboard/classes',
+    icon: getIcon(monitorFill)
+  },
+  {
+    title: 'Provas',
+    path: '/dashboard/exam',
+    icon: getIcon(editBagFill)
+  }
+];
+
+export { sidebarConfigStudent, sidebarConfigTeacher };

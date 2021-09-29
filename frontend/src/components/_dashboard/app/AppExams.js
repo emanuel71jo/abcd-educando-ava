@@ -30,13 +30,13 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   )} 100%)`
 }));
 
-export function AppExams() {
+export function AppExams({ value }) {
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={editBagFill} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">23</Typography>
+      <Typography variant="h3">{value}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Provas
       </Typography>

@@ -13,14 +13,12 @@ import {
 import { LoadingButton } from '@material-ui/lab';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAuth } from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuth();
 
@@ -28,9 +26,7 @@ export default function LoginForm() {
     email: Yup.string()
       .email('Email informado é inválido')
       .required('Email é um campo obrigatório'),
-    password: Yup.string()
-      .min(8, 'A senha deve ter no mínimo 8 dígitos')
-      .required('Senha é um campo obrigatório')
+    password: Yup.string().required('Senha é um campo obrigatório')
   });
 
   const formik = useFormik({
@@ -42,7 +38,7 @@ export default function LoginForm() {
     validationSchema: LoginSchema,
     onSubmit: (values) => {
       signIn({ email: values.email, password: values.password });
-      navigate('/dashboard', { replace: true });
+      formik.resetForm();
     }
   });
 

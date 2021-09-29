@@ -17,6 +17,7 @@ import { Form, FormikProvider, useFormik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { api } from '../../../services/api';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +38,7 @@ export default function RegisterForm() {
       .email('Email informado é inválido')
       .required('Email é um campo obrigatório'),
     password: Yup.string().required('Password é um campo obrigatório'),
-    userType: Yup.number().required('O tipo do usuário é um campo obrigatório')
+    type: Yup.number().required('O tipo do usuário é um campo obrigatório')
   });
 
   const formik = useFormik({
@@ -46,11 +47,20 @@ export default function RegisterForm() {
       lastName: '',
       email: '',
       password: '',
-      userType: 0
+      type: 0
     },
     validationSchema: RegisterSchema,
-    onSubmit: () => {
-      navigate('/login', { replace: true });
+    onSubmit: (values) => {
+      api
+        .post('/users', { ...values })
+        .then(() => {
+          alert('Usuário criado com sucesso!!');
+          navigate('/login', { replace: true });
+        })
+        .catch((err) => {
+          alert('Houve um problema ao tentar cadastrar o usuário!!');
+          formik.resetForm();
+        });
     }
   });
 
@@ -81,10 +91,10 @@ export default function RegisterForm() {
             <InputLabel id="userTypeLabel">Quero me cadastrar como?</InputLabel>
             <Select
               labelId="userTypeLabel"
-              {...getFieldProps('userType')}
+              {...getFieldProps('type')}
               label="Quero me cadastrar como?"
-              error={Boolean(touched.userType && errors.userType)}
-              helperText={touched.userType && errors.userType}
+              error={Boolean(touched.type && errors.type)}
+              helperText={touched.type && errors.type}
             >
               <MenuItem value={0}>Professor</MenuItem>
               <MenuItem value={1}>Aluno</MenuItem>

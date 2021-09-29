@@ -24,10 +24,20 @@ export default function Router() {
 
   return useRoutes([
     {
+      path: '/',
+      element: auth ? <Navigate to="/dashboard/app" replace /> : <LogoOnlyLayout />,
+      children: [
+        { path: 'login', element: <Login /> },
+        { path: 'register', element: <Register /> },
+        { path: '/', element: <Navigate to="/dashboard" replace /> },
+        { path: '*', element: <Navigate to="/404" replace /> }
+      ]
+    },
+    {
       path: '/dashboard',
       element: auth ? <DashboardLayout /> : <Navigate to="/login" replace />,
       children: [
-        { path: '/', element: <Navigate to="/dashboard/app" replace /> },
+        // { path: '/', element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
         { path: 'classes', element: <ClassesList /> },
         { path: 'classes/create', element: <ClassesCreate /> },
@@ -37,16 +47,6 @@ export default function Router() {
         { path: 'exam/create', element: <ExamsCreate /> },
         { path: 'students', element: <Students /> },
         { path: 'profile', element: <Profile /> },
-        { path: '*', element: <Navigate to="/404" replace /> }
-      ]
-    },
-    {
-      path: '/',
-      element: auth ? <Navigate to="/dashboard/app" replace /> : <LogoOnlyLayout />,
-      children: [
-        { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
-        { path: '/', element: <Navigate to="/dashboard" replace /> },
         { path: '*', element: <Navigate to="/404" replace /> }
       ]
     },

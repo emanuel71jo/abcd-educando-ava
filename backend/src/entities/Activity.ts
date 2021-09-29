@@ -19,6 +19,12 @@ class Activity {
   nota: number;
 
   @Column()
+  title: string;
+
+  @Column()
+  description: string;
+
+  @Column()
   userId: string;
 
   @Column()

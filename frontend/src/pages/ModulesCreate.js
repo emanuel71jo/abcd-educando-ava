@@ -6,6 +6,7 @@ import { Form, FormikProvider, useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Page from '../components/Page';
+import { api } from '../services/api';
 import { Header } from '../components/_dashboard/app/components/Header';
 
 // ----------------------------------------------------------------------
@@ -14,11 +15,11 @@ export default function ModulesCreate() {
   const navigate = useNavigate();
 
   const ModulesSchema = Yup.object().shape({
-    title: Yup.string()
+    content: Yup.string()
       .min(2, 'Muito curto!')
       .max(50, 'Muito longo!')
       .required('Título é um campo obrigatório'),
-    description: Yup.string()
+    evaluation: Yup.string()
       .min(2, 'Muito curto!')
       .max(500, 'Muito longo!')
       .required('Descrição é um campo obrigatório')
@@ -26,12 +27,21 @@ export default function ModulesCreate() {
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      description: ''
+      content: '',
+      evaluation: ''
     },
     validationSchema: ModulesSchema,
-    onSubmit: () => {
-      navigate('/dashboard/modules');
+    onSubmit: (values) => {
+      api
+        .post('/module', values)
+        .then(() => {
+          alert('Modulo criado com sucesso!!');
+          navigate('/dashboard/modules');
+        })
+        .catch(() => {
+          alert('Houve um erro ao tentar criar um modulo, por favor tente novamente mais tarde.');
+          navigate('/dashboard/modules');
+        });
     }
   });
 
@@ -48,20 +58,18 @@ export default function ModulesCreate() {
                 <TextField
                   fullWidth
                   label="Título do módulo"
-                  {...getFieldProps('title')}
-                  error={Boolean(touched.title && errors.title)}
-                  helperText={touched.title && errors.title}
+                  {...getFieldProps('content')}
+                  error={Boolean(touched.content && errors.content)}
+                  helperText={touched.content && errors.content}
                 />
                 <TextField
                   fullWidth
                   multiline
-                  minRows={1}
-                  maxRows={50}
                   rows={10}
                   label="Descrição do conteúdo programático"
-                  {...getFieldProps('description')}
-                  error={Boolean(touched.description && errors.description)}
-                  helperText={touched.description && errors.description}
+                  {...getFieldProps('evaluation')}
+                  error={Boolean(touched.evaluation && errors.evaluation)}
+                  helperText={touched.evaluation && errors.evaluation}
                 />
                 <LoadingButton
                   fullWidth

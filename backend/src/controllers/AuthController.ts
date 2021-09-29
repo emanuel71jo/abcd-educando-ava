@@ -21,7 +21,12 @@ class AuthController {
       throw new AppError("Unauthorized", 401);
 
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      {
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+        type: user.type,
+        id: user.id,
+      },
       config.jwtSecret,
       { expiresIn: "1h" }
     );

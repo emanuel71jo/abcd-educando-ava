@@ -1,10 +1,6 @@
 import { getCustomRepository, Repository } from "typeorm";
-import { Activity } from "../entities/Activity";
 import { Module } from "../entities/Module";
-import { Room } from "../entities/Room";
 import { ModulesRepository } from "../repositories/ModuleRepository";
-import { RoomsService } from "./RoomServices";
-import { UsersService } from "./UsersServices";
 
 class ModulesService {
   private modulesRepository: Repository<Module>;
@@ -25,6 +21,36 @@ class ModulesService {
     return module;
   }
 
+  async getTotalModulesUser(userId: string): Promise<number> {
+    const totalModulesUser = await this.modulesRepository.count({
+      where: {
+        userId,
+      },
+    });
+
+    return totalModulesUser;
+  }
+
+  async getTotalModulesRoom(roomId: string): Promise<number> {
+    const totalModulesRoom = await this.modulesRepository.count({
+      where: {
+        roomId,
+      },
+    });
+
+    return totalModulesRoom;
+  }
+
+  async getModuleUser(userId: string): Promise<Module[]> {
+    const modulesUser = await this.modulesRepository.find({
+      where: {
+        userId,
+      },
+    });
+
+    return modulesUser;
+  }
+
   async findByUserId(userId: string): Promise<Module[]> {
     const modules = await this.modulesRepository.find({
       where: { userId },
@@ -35,20 +61,31 @@ class ModulesService {
   async create(
     content: string,
     evaluation: string,
-    roomId: string,
     userId: string
   ): Promise<Module> {
-    const module = new Module();
-    module.content = content;
-    module.evaluation = evaluation;
-    module.roomId = roomId;
-    module.userId = userId;
+    const newModule = new Module();
+    newModule.content = content;
+    newModule.evaluation = evaluation;
+    newModule.userId = userId;
 
-    const moduleCreated = this.modulesRepository.create(module);
+    const moduleCreated = this.modulesRepository.create(newModule);
 
     await this.modulesRepository.save(moduleCreated);
 
-    return module;
+    return moduleCreated;
+  }
+
+  async updateRoomId(modulesIds: string[], roomId: string): Promise<void> {
+    const promise = modulesIds.map(async (id) => {
+      const moduleFinded = await this.modulesRepository.findOne({
+        where: { id },
+      });
+      moduleFinded.roomId = roomId;
+
+      await this.modulesRepository.save(moduleFinded);
+    });
+
+    await Promise.all(promise);
   }
 }
 

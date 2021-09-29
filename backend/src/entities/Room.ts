@@ -18,6 +18,9 @@ class Room {
   id: string;
 
   @Column()
+  title: string;
+
+  @Column()
   teacherId: string;
 
   @CreateDateColumn()

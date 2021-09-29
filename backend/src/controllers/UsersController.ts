@@ -11,6 +11,14 @@ class UsersController {
     return res.json(users);
   }
 
+  async listAllStudents(req: Request, res: Response): Promise<Response> {
+    const usersService = new UsersService();
+
+    const users = await usersService.listAllStudents();
+
+    return res.json(users);
+  }
+
   async create(req: Request, res: Response): Promise<Response> {
     const { email, password, firstName, lastName, type } = req.body;
 

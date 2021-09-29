@@ -22,7 +22,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const { signOut } = useAuth();
+  const { signOut, profile } = useAuth();
 
   const handleOpen = () => {
     setOpen(true);
@@ -64,10 +64,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            João Emanuel
+            {(profile && profile.name) || ''}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            emanuel71jo@gmail.com
+            {(profile && profile.email) || ''}
           </Typography>
         </Box>
 

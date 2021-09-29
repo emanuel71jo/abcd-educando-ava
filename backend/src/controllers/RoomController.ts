@@ -5,11 +5,21 @@ import { UsersRoomService } from "../services/UsersRoomServices";
 
 class RoomsController {
   async index(req: Request, res: Response): Promise<Response> {
-    const { userId } = req.body.user;
+    const { id } = req.body.user;
 
     const roomsService = new RoomsService();
 
-    const rooms = await roomsService.findByTeacherId(userId);
+    const rooms = await roomsService.findByTeacherId(id);
+
+    return res.json(rooms);
+  }
+
+  async indexStudent(req: Request, res: Response): Promise<Response> {
+    const { id } = req.body.user;
+
+    const roomsService = new UsersRoomService();
+
+    const rooms = await roomsService.findByUserId(id);
 
     return res.json(rooms);
   }
@@ -17,30 +27,20 @@ class RoomsController {
   async create(req: Request, res: Response): Promise<Response> {
     const {
       students,
-      user: { userId },
+      modules,
+      title,
+      user: { id },
     } = req.body;
 
-    console.log("HERE 1");
-
     const roomsService = new RoomsService();
-
-    console.log("HERE 2");
-
-    const roomCreated = await roomsService.create(userId);
-
-    console.log("HERE 3");
-
     const usersRoomService = new UsersRoomService();
+    const moduleService = new ModulesService();
 
-    console.log("HERE 4");
-
+    const roomCreated = await roomsService.create(id, title);
     const usersRoom = await usersRoomService.createAll(students, roomCreated);
-
-    console.log("HERE 5");
+    await moduleService.updateRoomId(modules, roomCreated.id);
 
     roomCreated.userRooms = usersRoom;
-
-    console.log("HERE 6");
 
     return res.json(roomCreated);
   }

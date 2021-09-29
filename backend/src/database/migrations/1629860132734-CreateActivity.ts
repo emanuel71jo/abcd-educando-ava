@@ -16,6 +16,14 @@ export class CreateActivity1629859580968 implements MigrationInterface {
             type: "number",
           },
           {
+            name: "description",
+            type: "varchar",
+          },
+          {
+            name: "title",
+            type: "varchar",
+          },
+          {
             name: "userId",
             type: "uuid",
           },
