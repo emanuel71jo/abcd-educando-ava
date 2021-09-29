@@ -13,7 +13,7 @@ import ModulesList from './pages/ModulesList';
 import ModulesCreate from './pages/ModulesCreate';
 import Exams from './pages/Exams';
 import ExamsCreate from './pages/ExamsCreate';
-import Students from './pages/Students';
+import StudentsList from './pages/StudentsList';
 import Profile from './pages/Profile';
 
 // hooks
@@ -45,7 +45,7 @@ export default function Router() {
         { path: 'modules/create', element: <ModulesCreate /> },
         { path: 'exam', element: <Exams /> },
         { path: 'exam/create', element: <ExamsCreate /> },
-        { path: 'students', element: <Students /> },
+        { path: 'students', element: <StudentsList /> },
         { path: 'profile', element: <Profile /> },
         { path: '*', element: <Navigate to="/404" replace /> }
       ]
